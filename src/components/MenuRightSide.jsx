@@ -4,52 +4,32 @@ import { useSelector } from 'react-redux';
 
 function MenuRightSide(params) {
   const todo = useSelector((state) => state.todo.data);
-  const [all, setAll] = useState(0);
-  const [done, setDone] = useState(0);
-  const [width, setWidth] = useState(0);
-
-  const [allToday, setAllToday] = useState(0);
-  const [doneToday, setDoneToday] = useState(0);
-  const [widthToday, setWidthToday] = useState(0);
+  const [totalStats, setTotalStats] = useState({ all: 0, done: 0, width: 0 });
+  const [todayStats, setTodayStats] = useState({ all: 0, done: 0, width: 0 });
 
   useEffect(() => {
-    const NewallTask = allTask();
-    const NewallTaskToday = todayTask();
-
-    setWidth(NewallTask);
-    setWidthToday(NewallTaskToday);
+    updateStats();
   }, [todo]);
 
-  function allTask() {
-    const newAll = todo.length;
-    const newDone = todo.filter((e) => e.done == true).length;
+  function updateStats() {
+    const newTotal = calculateStats(todo);
+    const newToday = calculateStats(todo.filter((task) => isToday(task.date)));
 
-    setAll(newAll);
-
-    setDone(newDone);
-
-    return getWith(newDone, newAll);
+    setTotalStats(newTotal);
+    setTodayStats(newToday);
   }
 
-  function todayTask() {
-    const newTodo = todo.filter((e) => {
-      const newDate = moment(new Date(e.date)).format('YYYY, MMMM DD');
-      const nowDate = moment().format('YYYY, MMMM DD');
+  function calculateStats(tasks) {
+    const totalTasks = tasks.length;
+    const doneTasks = tasks.filter((task) => task.done).length;
+    const width = (doneTasks / totalTasks) * 100 || 0;
 
-      return newDate == nowDate;
-    });
-
-    const newAll = newTodo.length;
-    const newDone = newTodo.filter((e) => e.done == true).length;
-
-    setAllToday(newAll);
-    setDoneToday(newDone);
-
-    return getWith(newDone, newAll);
+    return { all: totalTasks, done: doneTasks, width };
   }
 
-  function getWith(first, last) {
-    return (first / last) * 100;
+  function isToday(date) {
+    const today = moment().startOf('day');
+    return moment(date).isSame(today, 'day');
   }
 
   return (
@@ -66,30 +46,30 @@ function MenuRightSide(params) {
             <div className="grid grid-flow-col justify-between">
               <h1>Semua Tugas</h1>
               <h1>
-                {done}/{all}
+                {totalStats.done}/{totalStats.all}
               </h1>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5 ">
               <div
                 className={`bg-violet-600 rounded-full h-2.5`}
-                style={{ width: `${width}%` }}
+                style={{ width: `${totalStats.width}%` }}
               ></div>
             </div>
           </div>
         </div>
-        {allToday != 0 && (
+        {todayStats.all != 0 && (
           <div className="mt-8 px-6">
             <div className="flex flex-col gap-1">
               <div className="grid grid-flow-col justify-between">
                 <h1>Tugas Hari ini</h1>
                 <h1>
-                  {doneToday}/{allToday}
+                  {todayStats.done}/{todayStats.all}
                 </h1>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2.5 ">
                 <div
                   className={`bg-violet-600 rounded-full h-2.5`}
-                  style={{ width: `${widthToday}%` }}
+                  style={{ width: `${todayStats.width}%` }}
                 ></div>
               </div>
             </div>

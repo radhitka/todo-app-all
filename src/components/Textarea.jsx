@@ -11,6 +11,7 @@ function Textarea(params) {
         </div>
       )}
       <textarea
+        name={params?.name}
         className={`textarea textarea-primary textarea-bordered h-24 ${className}`}
         placeholder={params.placeholder}
         onChange={onChange}

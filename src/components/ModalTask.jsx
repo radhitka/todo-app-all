@@ -11,36 +11,38 @@ function ModalTask(params) {
   const modal = useSelector((state) => state.modal.data);
   const dispatch = useDispatch();
 
-  const [oldId, setNewId] = useState('');
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [desc, setDesc] = useState('');
-  const [check, setCheck] = useState(false);
+  const [state, setState] = useState({
+    oldId: '',
+    title: '',
+    date: '',
+    desc: '',
+    check: false,
+  });
 
   useEffect(() => {
-    setNewId(modal.id);
-    setTitle(modal.title);
+    const { id, title, date, desc, important } = modal;
 
-    if (modal.date) {
-      setDate(moment(new Date(modal.date)).format('yyyy-MM-DD'));
-    } else {
-      setDate('');
-    }
-
-    setDesc(modal.desc);
-    setCheck(modal.important);
+    setState({
+      oldId: id,
+      title: title,
+      date: date ? moment(new Date(modal.date)).format('yyyy-MM-DD') : '',
+      desc: desc,
+      check: important,
+    });
   }, [modal]);
 
-  function onChangeDate(e) {
-    setDate(e.target.value);
-  }
-
-  function onChangeCheck(e) {
-    setCheck(e.target.checked);
-  }
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const { oldId, title, date, desc, check } = state;
 
     var newData = {
       id: oldId || Math.floor(Math.random() * 100),
@@ -80,37 +82,41 @@ function ModalTask(params) {
                 </div>
                 <div className="w-full">
                   <Input
+                    name="title"
                     required={true}
                     title="Judul"
                     type="text"
                     placeholder="Masukan Judul"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={state.title}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="w-full">
                   <Input
+                    name="date"
                     required={true}
                     title="Tanggal"
                     type="date"
                     placeholder="Masukan Judul"
-                    value={date}
-                    onChange={(e) => onChangeDate(e)}
+                    value={state.date}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="w-full">
                   <Textarea
+                    name="desc"
                     title="Deskripsi"
                     placeholder="Deskripsi"
-                    onChange={(e) => setDesc(e.target.value)}
-                    value={desc}
+                    onChange={handleChange}
+                    value={state.desc}
                   />
                 </div>
                 <div className="">
                   <Checkbox
+                    name="check"
                     title="Penting"
-                    checked={check}
-                    onChange={(e) => onChangeCheck(e)}
+                    checked={state.check}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mt-2">

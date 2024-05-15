@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  data: {
+    id: 0,
+    isVisible: false,
+  },
+};
+
 const modelDeleteSlice = createSlice({
   name: 'modalDelete',
   initialState: {
@@ -13,10 +20,7 @@ const modelDeleteSlice = createSlice({
       state.data.isVisible = true;
       state.data.id = actions.payload.id;
     },
-    closeModal: (state) => {
-      state.data.isVisible = false;
-      state.data.id = 0;
-    },
+    closeModal: (state) => initialState,
   },
 });
 

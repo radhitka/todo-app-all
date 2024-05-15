@@ -6,6 +6,7 @@ function Checkbox(params) {
       <input
         id="check"
         type="checkbox"
+        name={params?.name}
         checked={params.checked}
         className={`checkbox checkbox-primary ${className}`}
         onChange={onChange}

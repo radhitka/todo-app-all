@@ -7,11 +7,14 @@ import { openCreate } from '../redux/slices/modalSlice';
 
 function Home(params) {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.todo.data);
-  const filter = useSelector((state) => state.todo.filter);
+  const { todo, filter } = useSelector((state) => ({
+    todo: state.todo.data,
+    filter: state.todo.filter,
+  }));
   const { id } = useParams();
 
   let title = params.title;
+  let filteredTodos;
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todo));
@@ -20,8 +23,6 @@ function Home(params) {
   useEffect(() => {
     localStorage.setItem('filter', JSON.stringify(filter));
   }, [filter]);
-
-  let filteredTodos;
 
   switch (filter) {
     case 'IMPORTANT':

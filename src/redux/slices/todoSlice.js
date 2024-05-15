@@ -11,42 +11,33 @@ const todoSlice = createSlice({
       state.filter = action.payload.filter;
     },
     addTodo: (state, actions) => {
-      const index = state.data.findIndex(
-        (todo) => todo.id === actions.payload.id
-      );
+      const { id, title, date, desc, important } = actions.payload;
+      const index = state.data.findIndex((todo) => todo.id === id);
 
       if (index !== -1) {
-        state.data[index].title = actions.payload.title;
-        state.data[index].date = actions.payload.date;
-        state.data[index].desc = actions.payload.desc;
-        state.data[index].important = actions.payload.important;
+        state.data[index] = { id, title, date, desc, important };
         return;
       }
 
-      state.data.push(actions.payload);
+      state.data.push({ id, title, date, desc, important });
     },
     changeStatusTodo: (state, actions) => {
-      const index = state.data.findIndex(
-        (todo) => todo.id === actions.payload.id
-      );
+      const { id } = actions.payload;
+      const index = state.data.findIndex((todo) => todo.id === id);
 
       if (index !== -1) {
         state.data[index].done = !state.data[index].done;
       }
     },
     changeStatusImportant: (state, actions) => {
-      const index = state.data.findIndex(
-        (todo) => todo.id === actions.payload.id
-      );
+      const { id } = actions.payload;
+      const index = state.data.findIndex((todo) => todo.id === id);
 
       if (index !== -1) {
         state.data[index].important = !state.data[index].important;
       }
     },
     removeTodo: (state, action) => {
-      state.data = state.data.filter((todo) => todo.id !== action.payload.id);
-    },
-    updateTodo: (state, action) => {
       state.data = state.data.filter((todo) => todo.id !== action.payload.id);
     },
   },

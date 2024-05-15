@@ -11,6 +11,7 @@ function Input(params) {
         </div>
       )}
       <input
+        name={params?.name}
         type={params.type}
         placeholder={params.placeholder}
         className={`input input-primary  ${className}`}
