@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import MenuRightSide from './components/MenuRightSide';
 import Menuside from './components/MenuSide';
+import MenuSideMobile from './components/MenuSideMobile';
 import ModalDelete from './components/ModalDelete';
 import Navbar from './components/Navbar';
 import NavbarMobile from './components/NavbarMobile';
@@ -23,6 +24,7 @@ function App() {
             </div>
           </div>
         </div>
+        <MenuSideMobile />
         <div className="pt-5 px-3 md:px-8 pb-8 min-h-screen w-full xl:w-8/12 m-auto">
           <Navbar />
           <NavbarMobile />

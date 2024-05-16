@@ -43,7 +43,7 @@ function Menuside(params) {
               onClick={(e) => handleFilterChange(item.type)}
               to={item.path}
               key={key}
-              className={`px-4 py-2 block w-full ${
+              className={`px-4 py-2 block w-full text-xs lg:text-base ${
                 currentPath == item.path ? 'menu-active' : ''
               } `}
             >

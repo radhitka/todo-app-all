@@ -1,7 +1,13 @@
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAnglesRight,
+  faBars,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { openRight } from '../redux/slices/showMenuSlice';
 import { changeFilter } from '../redux/slices/todoSlice';
 import SearchData from './SearchData';
 
@@ -55,10 +61,25 @@ function NavbarMobile(params) {
     setIsSearch(false);
   };
 
+  function handleShowRight() {
+    dispatch(openRight());
+  }
+
   return (
     <div className="flex lg:hidden">
-      <div className="flex-1">
-        <div className="relative w-full" ref={menuRef}>
+      <div className="flex-1 flex flex-col gap-5 px-2">
+        <div className="grid grid-flow-col justify-between px-1">
+          <button onClick={(e) => handleShowRight()}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+          <div>
+            <span className="">{moment().format('YYYY, MMMM DD')}</span>
+          </div>
+          <button>
+            <FontAwesomeIcon icon={faAnglesRight} />
+          </button>
+        </div>
+        <div className="relative w-full mt-2" ref={menuRef}>
           <input
             type="text"
             className="input input-primary w-full bg-slate-100 border-transparent border-2 rounded-lg text-sm text-slate-600 "
