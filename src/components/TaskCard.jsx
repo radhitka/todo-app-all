@@ -84,13 +84,17 @@ function TaskCard(params) {
   }
 
   return (
-    <div className="flex flex-col gap-5 bg-violet-600 h-52 xl:h-64 rounded-lg p-3 lg:p-5">
+    <div className="flex flex-col gap-5 bg-violet-600 h-44 xl:h-64 rounded-lg p-3 lg:p-5">
       <div className="flex flex-col flex-1 gap-2">
-        <h1 className="text-slate-100 text-sm">{data.title}</h1>
-        <p className="text-violet-300 line-clamp-3 text-sm">{data.desc}</p>
+        <h1 className="text-slate-100 text-xs lg:text-sm">{data.title}</h1>
+        <p className="text-violet-300 line-clamp-3 text-xs lg:text-sm">
+          {data.desc}
+        </p>
         <p className="text-slate-100 mt-auto items-center justify-center text-sm xl:text-base">
           <FontAwesomeIcon icon={faCalendarDays} className="me-3" />
-          {moment(new Date(data.date)).format('YYYY, MMMM DD')}
+          <span className="text-xs">
+            {moment(new Date(data.date)).format('YYYY, MMMM DD')}
+          </span>
         </p>
       </div>
       <div className="flex border-dashed border-violet-200 w-full border-t-2 justify-between pt-2 xl:pt-4">

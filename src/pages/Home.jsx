@@ -49,12 +49,12 @@ function Home(params) {
       <h1 className="font-medium text-center lg:text-left sm:mt-8 sm:mb-4 md:text-2xl text-lg">
         {title}
       </h1>
-      <div className="mt-1 lg:mt-3 grid grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-6 items-end">
+      <div className="mt-1 lg:mt-3 grid grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-6 items-end">
         {filteredTodos?.map((e, key) => {
           return <TaskCard data={e} key={key} />;
         })}
         <div
-          className="flex bg-slate-200 border-2 border-dashed border-slate-300 h-52 xl:h-64 rounded-lg items-center justify-center text-slate-400 hover:text-slate-500 hover:bg-slate-300 cursor-pointer"
+          className="flex bg-slate-200 border-2 border-dashed border-slate-300 h-44 xl:h-64 rounded-lg items-center justify-center text-slate-400 hover:text-slate-500 hover:bg-slate-300 cursor-pointer"
           onClick={() => dispatch(openCreate())}
         >
           <h1 className="text-sm lg:text-base">Tambah Tugas Baru</h1>
