@@ -17,19 +17,29 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openCreate: (state, actions) => {
-      state.data.isVisible = true;
-      state.data.name = 'Tambah Tugas';
+      return {
+        data: {
+          ...state,
+          isVisible: true,
+          name: 'Tambah Tugas',
+        },
+      };
     },
     editCreate: (state, actions) => {
       const { id, title, date, desc, important } = actions.payload?.data;
 
-      state.data.id = id;
-      state.data.name = 'Edit Tugas';
-      state.data.isVisible = true;
-      state.data.title = title;
-      state.data.date = date;
-      state.data.desc = desc;
-      state.data.important = important;
+      return {
+        data: {
+          ...state,
+          isVisible: true,
+          name: 'Edit Tugas',
+          id,
+          title,
+          date,
+          desc,
+          important,
+        },
+      };
     },
     closeModals: (state) => initialState,
   },
