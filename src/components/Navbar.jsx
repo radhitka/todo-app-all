@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment/moment';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { openCreate } from '../redux/slices/modalSlice';
 import { changeFilter } from '../redux/slices/todoSlice';
+import SearchData from './SearchData';
 
 function Navbar(params) {
   const dispatch = useDispatch();
@@ -71,34 +71,14 @@ function Navbar(params) {
             icon={faMagnifyingGlass}
             className="absolute w-4 sm:w-5 right-4 top-4 text-slate-400"
           />
+          {isSearch && (
+            <SearchData
+              searchQuery={search}
+              todo={todo}
+              onClick={(e) => handleFilterChange()}
+            />
+          )}
         </div>
-        {isSearch && (
-          <div className="absolute top-[4.7rem] flex flex-col gap-3 w-full max-w-xs bg-slate-100 p-4 rounded-lg z-50">
-            {todo.map((e, key) => {
-              return (
-                <Link
-                  onClick={(e) => handleFilterChange()}
-                  to={'task/' + e.id}
-                  key={key}
-                  className={`grid grid-flow-col justify-between hover:text-red-300 cursor-pointer`}
-                >
-                  <h1>{e.title}</h1>
-                  <h1>{e.date}</h1>
-                </Link>
-              );
-            })}
-            {todo.length > 0 && (
-              <div className="bg-rose-100 w-full p-2 rounded-md text-rose-600 text-center">
-                Pencarian untuk : {search}
-              </div>
-            )}
-            {todo.length == 0 && (
-              <div className="">
-                <h1>Tugas tidak ditemukan....</h1>
-              </div>
-            )}
-          </div>
-        )}
       </div>
       <div className="flex text-center">
         <span className="">{moment().format('YYYY, MMMM DD')}</span>

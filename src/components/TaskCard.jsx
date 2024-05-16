@@ -6,7 +6,6 @@ import {
 import {
   faEllipsisVertical,
   faStar as faStar2,
-  faX,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
@@ -17,6 +16,7 @@ import {
   changeStatusImportant,
   changeStatusTodo,
 } from '../redux/slices/todoSlice';
+import ButtonStar from './ButtonStar';
 
 function TaskCard(params) {
   const data = params?.data;
@@ -49,31 +49,19 @@ function TaskCard(params) {
   let button, star;
   if (data.done) {
     button = (
-      <button
-        className="bg-emerald-200 text-emerald-800 mr-4 order-0 rounded-full font-medium"
-        onClick={(e) => handleClick()}
-      >
-        <span className="sm:hidden w-6 h-6 grid place-items-center">
-          <FontAwesomeIcon icon={faX} className="w-3 h-3 text-slate-700" />
-        </span>
-        <span className="hidden lg:grid px-3 py-1 place-items-center">
-          Selesai
-        </span>
-      </button>
+      <ButtonStar
+        title="Selesai"
+        className="bg-emerald-200 text-emerald-800 "
+        handleClick={(e) => handleClick()}
+      />
     );
   } else {
     button = (
-      <button
-        className="bg-amber-200 text-amber-800 mr-4 order-0 rounded-full font-medium"
-        onClick={(e) => handleClick()}
-      >
-        <span className="sm:hidden w-6 h-6 grid place-items-center">
-          <FontAwesomeIcon icon={faX} className="w-3 h-3 text-slate-700" />
-        </span>
-        <span className="hidden lg:grid px-3 py-1 place-items-center">
-          Belum Selesai
-        </span>
-      </button>
+      <ButtonStar
+        title="Belum Selesai"
+        className="bg-amber-200 text-amber-800"
+        handleClick={(e) => handleClick()}
+      />
     );
   }
 
