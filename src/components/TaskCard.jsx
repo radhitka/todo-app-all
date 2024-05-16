@@ -92,7 +92,7 @@ function TaskCard(params) {
         </p>
         <p className="text-slate-100 mt-auto items-center justify-center text-sm xl:text-base">
           <FontAwesomeIcon icon={faCalendarDays} className="me-3" />
-          <span className="text-xs">
+          <span className="text-xs lg:text-base">
             {moment(new Date(data.date)).format('YYYY, MMMM DD')}
           </span>
         </p>

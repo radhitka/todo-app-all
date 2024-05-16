@@ -26,21 +26,31 @@ function Home(params) {
 
   switch (filter) {
     case 'IMPORTANT':
-      filteredTodos = todo.filter((e) => e.important == true);
+      filteredTodos = todo.filter((e) => e.important);
+
+      title = `Tugas Penting (${filteredTodos.length} tugas)`;
+
       break;
     case 'COMPLETED':
-      filteredTodos = todo.filter((e) => e.done == true);
+      filteredTodos = todo.filter((e) => e.done);
+
+      title = `Tugas Selesai (${filteredTodos.length} tugas)`;
       break;
     case 'UNCOMPLETED':
-      filteredTodos = todo.filter((e) => e.done == false);
+      filteredTodos = todo.filter((e) => !e.done);
+
+      title = `Tugas Belum Selesai (${filteredTodos.length} tugas)`;
       break;
     case 'SEARCH':
       filteredTodos = todo.filter((e) => e.id == id);
+
       title = `Tugas ${filteredTodos[0]?.title} (${filteredTodos.length} tugas)`;
       break;
 
     default:
       filteredTodos = todo;
+
+      title = `Semua Tugas (${filteredTodos.length} tugas)`;
       break;
   }
 
